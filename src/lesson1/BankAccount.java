@@ -1,5 +1,7 @@
 package lesson1;
 
+import java.util.Random;
+
 /**
  * Operations: deposit money, withdraw money, get current balance
  * Instance variables (what makes a bank account, it's properties):
@@ -17,11 +19,28 @@ public class BankAccount {
     //constructors must have same name as class
     public BankAccount(){
         balance = 0;
+        accountNumber = Random().toString();
+
     }
 
     //overloaded constructor
     public BankAccount(double initialBalance){
         balance = initialBalance;
+        accountNumber = Random().toString();
+    }
+
+    //overloaded constructor
+    public BankAccount(double initialBalance, String name){
+        balance = initialBalance;
+        owner = name;
+        accountNumber = Random().toString();
+    }
+
+    private Random Random(){
+        Random rand = new Random();
+        rand.ints(8);
+
+        return rand;
     }
 
     //setters (mutators)
@@ -37,6 +56,14 @@ public class BankAccount {
 
     public void withdraw(double amount){
         balance -= amount;
+    }
+
+    public void addInterest(double interestRate){
+        balance += (interestRate/100) * balance;
+    }
+
+    public void changeInterest(double newInterestRate){
+        interestRate = newInterestRate;
     }
 
     //getter (accessor)
