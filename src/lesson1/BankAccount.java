@@ -10,37 +10,36 @@ import java.util.Random;
 
 public class BankAccount {
 
-    private String accountNumber;
+    private final String accountNumber;
     private double balance;
     private double interestRate;
-    private String bank;
     private String owner;
 
     //constructors must have same name as class
     public BankAccount(){
         balance = 0;
-        accountNumber = Random().toString();
+        accountNumber = Random();
 
     }
 
     //overloaded constructor
     public BankAccount(double initialBalance){
         balance = initialBalance;
-        accountNumber = Random().toString();
+        accountNumber = Random();
     }
 
     //overloaded constructor
     public BankAccount(double initialBalance, String name){
         balance = initialBalance;
         owner = name;
-        accountNumber = Random().toString();
+        accountNumber = Random();
     }
 
-    private Random Random(){
+    private String Random(){
         Random rand = new Random();
         rand.ints(8);
 
-        return rand;
+        return rand.toString();
     }
 
     //setters (mutators)
@@ -66,6 +65,10 @@ public class BankAccount {
         interestRate = newInterestRate;
     }
 
+    public void changeOwner(String newOwner){
+        owner = newOwner;
+    }
+
     //getter (accessor)
     public double getBalance(){
         return balance;
@@ -73,6 +76,6 @@ public class BankAccount {
 
     @Override
     public String toString(){
-        return String.format("Balance: $%.2f",balance);
+        return String.format("Owner: %s\n Account Number: %s\nBalance: $%.2f\nInterest Rate: %.2f%%",owner, accountNumber, balance, interestRate);
     }
 }
