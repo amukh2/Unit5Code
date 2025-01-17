@@ -14,6 +14,8 @@ public class BankAccount {
     private double balance;
     private double interestRate;
     private String owner;
+    private double fee;
+    private int feeCount;
 
     //constructors must have same name as class
     public BankAccount(){
@@ -35,6 +37,11 @@ public class BankAccount {
         accountNumber = Random();
     }
 
+    /**
+     * Creates a random 8 digit long account number
+     * 
+     * @return the generated bank account number
+     */
     private String Random(){
         Random rand = new Random();
         rand.ints(8);
@@ -46,27 +53,61 @@ public class BankAccount {
 
     /**
      * Deposits a specified amount of money into the
-     * account
+     * account and charges a fee
      * @param amount amount to deposit
      */
     public void deposit(double amount){
         balance += amount;
+        fee = amount * .05;
+        balance -= fee;
+        feeCount++;
     }
 
+    /**
+     * Withdraws a specified amount of money form the account and
+     * charges a fee.
+     * @param amount amount to withdraw
+     */
     public void withdraw(double amount){
         balance -= amount;
+        fee = amount * .05;
+        balance -= fee;
+        feeCount++;
     }
 
+    /**
+     * Adds a specific interest rate to the balance
+     * @param interestRate interest rate percentage
+     */
     public void addInterest(double interestRate){
         balance += (interestRate/100) * balance;
     }
 
+      /**
+     * Changes the interest rate
+     * @param newInterestRate the new enetered interest rate
+     */
     public void changeInterest(double newInterestRate){
         interestRate = newInterestRate;
     }
 
+      /**
+     * Changes bank account owner
+     * @param newOwner name of the new owner
+     */
     public void changeOwner(String newOwner){
         owner = newOwner;
+    }
+
+      /**
+     * If the user has used more than the allotted free transactions (20)
+     * it deducts 50 cents per additional transaction which is deducted at the end of the month
+     * @param newOwner name of the new owner
+     */
+    public void deductMonthlyFee(){
+        if (feeCount > 20){
+            balance = balance - ((feeCount - 20) * .50);
+        }
     }
 
     //getter (accessor)
